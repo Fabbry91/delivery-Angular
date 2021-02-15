@@ -1,0 +1,21 @@
+.abs-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: url(../../../../assets/img/HamburguesaDia.png);
+  background-size: cover;
+  min-height: 700px;
+}
+
+.card {
+  background-color: rgb(167, 167, 167);
+}
+.card-header {
+  background-color: rgb(146, 141, 141);
+}
+
+.btn-google {
+  background-color: red;
+  color: white;
+}

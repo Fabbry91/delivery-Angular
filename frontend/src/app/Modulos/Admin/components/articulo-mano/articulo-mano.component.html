@@ -1,0 +1,221 @@
+<div class="container">
+
+    <h2 class="text-center m-1">Listado de Articulos Manofacturados</h2>
+    <hr>
+
+    <div class="row">
+        <div class="col-1 mt-3">
+            <label class=" text-white">Buscar:</label>
+        </div>
+        <ng-autocomplete class="col-7 mt-2" [data]="dataFact" [searchKeyword]="keywordFac" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" placeholder="Buscar">
+            style="color: black;">
+            <ng-template #itemTemplate let-item>
+                <a [innerHTML]="item.nombre"></a>
+            </ng-template>
+
+            <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+            </ng-template>
+        </ng-autocomplete>
+        <div class="col-4 mt-2">
+            <button type="button" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#exampleModal" style="width: 80%;">
+                <i class="fa fa-plus"></i> Nuevo
+            </button>
+        </div>
+    </div>
+
+
+    <div class=" table-responsive">
+        <div class="div" id='table' #table>
+            <table *ngIf="!cargando && manoFact.length > 0" class="table table-bordered table-dark text-center mt-2">
+                <thead style="background-color: rgb(31, 31, 31);">
+                    <tr>
+                        <th scope="col">MANOFACTURADO</th>
+                        <th scope="col">PRECIO</th>
+                        <th scope="col">T. ELABORACION</th>
+                        <th scope="col">EDITAR</th>
+                        <th scope="col">ELIMINAR</th>
+                    </tr>
+                </thead>
+
+                <tbody class="bodyTable">
+                    <tr *ngFor="let manof of manoFact| paginate: { itemsPerPage: 7, currentPage: p };let i=index">
+                        <th>{{manof.nombre | titlecase}}</th>
+                        <td>{{manof.precio | currency}}</td>
+                        <td>{{manof.tiempoDeCoccion}} &nbsp; min</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" id="boton2" data-toggle="modal" data-target="#exampleModal" (click)="showModal(manof)">
+                            <i class="fas fa-edit" aria-hidden="true"></i>
+                        </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger m-1 btn-sm" (click)="deleteMano(manof._id)">
+                            <i class="fa fa-trash-alt" aria-hidden="true"></i>
+                        </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="!cargando && manoFact.length === 0" class="text-center mt-3 animated fadeIn faster">
+            <h4 class="alert-heading text-warning">No hay registros</h4>
+            <p>
+                <i class="fa fa-exclamation fa-2x text-warning"></i>
+            </p>
+        </div>
+
+        <div *ngIf="cargando" class="text-center mt-3 animated fadeIn faster">
+            <h4 class="alert-heading text-white">Cargando</h4>
+            <p>
+                <i class="fa fa-sync-alt fa-spin fa-2x text-white"></i>
+            </p>
+            <p class="mb-0 text-white">
+                Espere por Favor
+            </p>
+        </div>
+
+        <pagination-controls class="text-center" (pageChange)="p = $event"></pagination-controls>
+
+       <!-- <div class="col-md-6 offset-md-3">
+            <button type="button" class="btn btn-outline-primary btn-block" (click)="downloadPDF()">
+                <i class="fas fa-print" style="font-size: 150%;"></i>
+            </button>
+        </div>-->
+    </div>
+</div>
+
+<!--Modal-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" *ngIf="Edit==false">Nuevo Articulo Manofacturado</h5>
+                <h5 class="modal-title" *ngIf="Edit==true">Edit Articulo Manofacturado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-7">
+
+                        <form [formGroup]="forma1">
+
+                            <div class="form-group row">
+                                <!--<label class="col-sm-2 col-form-label text-dark">ID:</label>-->
+                                <div class="col">
+                                    <input class="form-control" type="hidden" placeholder="ID" formControlName="_id" [class.is-invalid]="nombreNoValido">
+                                    <small *ngIf="nombreNoValido" class="text-danger">
+                                        Ingrese nombre del articulo manofacturado
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label text-dark">Nombre:</label>
+                                <div class="col">
+                                    <input class="form-control" type="text" placeholder="Nombre del producto" formControlName="nombre" [class.is-invalid]="nombreNoValido">
+                                    <small *ngIf="nombreNoValido" class="text-danger">
+                                        Ingrese nombre del articulo manofacturado
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label text-dark">Precio:</label>
+                                <div class="col">
+                                    <div class="row ml-1">
+                                        <span class="col-1 input-group-text">$</span>
+                                        <input class="col-10 form-control" type="text" placeholder="Ingrese Precio" formControlName="precio" [class.is-invalid]="precioNoValido">
+                                        <small *ngIf="precioNoValido" class="text-danger">
+                                            Ingrese precio del articulo manofacturado
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label text-dark">T.Elab:</label>
+                                <div class="col">
+                                    <div class="row ml-1">
+                                        <input class="col-8 form-control" type="text" placeholder="Ingrese tiempo de elaboracion " formControlName="tiempoDeCoccion" [class.is-invalid]="tiempoNoValido">
+                                        <span class="col-3 input-group-text">min</span>
+                                        <small *ngIf="tiempoNoValido" class="text-danger">
+                                            Ingrese tiempo de elaboracion en minutos
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+
+                        <form *ngIf="!forma1.valid == !forma2 " [formGroup]="forma2">
+
+                            <label class="card-text text-center"> Detalle </label>
+                            <div class="form-group row">
+                                <label class="col-2 mr-2 text-dark"> Cantidad:
+                                </label>
+                                <input class="col-2 form-control ml-2" type="number" placeholder="0" formControlName="cantidad" [class.is-invalid]="cantidadNoValido">
+
+                                <div class="input-group col-7">
+                                    <ng-autocomplete [data]="data$" [searchKeyword]="keyword" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" formControlName="articuloData" [class.is-invalid]="articuloNoValido" style="color: black;">
+                                    </ng-autocomplete>
+
+                                    <ng-template #itemTemplate let-item>
+                                        <a [innerHTML]="item.denominacion"></a>
+                                    </ng-template>
+
+                                    <ng-template #notFoundTemplate let-notFound>
+                                        <div [innerHTML]="notFound"></div>
+                                    </ng-template>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <small *ngIf="cantidadNoValido" class="text-danger">
+                                        Ingrese cantidad del articulo
+                                    </small>
+                                </div>
+
+                                <div class="col-6">
+                                    <small *ngIf="cantidadNoValido" class="text-danger">
+                                        Ingrese el articulo
+                                    </small>
+                                </div>
+                            </div>
+
+
+                            <div class="col text-center mt-2">
+                                <button class="btn btn-primary text-center" (click)="addDetalle()"> <i
+                                        class="fa fa-plus"></i> Añadir</button>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="col">
+                        <ul class="list-group col">
+                            <li *ngFor="let details of detallesArticulos" class="card mb-2 animated fadeIn slow">
+                                <div class="card-body row" style="height: auto;">
+                                    <span class="col card-text">{{details.cantidad}}
+                                        {{details.articulo.unidadMedidad}}&nbsp;&nbsp;{{details.articulo.denominacion | titlecase}}
+                                        {{details.articulo.precioCompra | currency}}</span>
+                                    <button type="button" class="btn btn-danger btn-sm" (click)="deleteDetalle(details.articulo._id)"><i class="fa fa-trash-alt"
+                                            aria-hidden="true"></i></button>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                <button *ngIf="Edit==false" type="button" class="btn text-white" style="background-color: darkgreen;" data-dismiss="modal" (click)='guardar()'><i class="fa fa-save"></i>Guardar</button>
+                <button *ngIf="Edit==true" type="button" class="btn text-white" style="background-color: darkgreen;" data-dismiss="modal" (click)='edit()'><i class="fa fa-save"></i>Edit</button>
+            </div>
+        </div>
+    </div>
+</div>

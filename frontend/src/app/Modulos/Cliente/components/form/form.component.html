@@ -1,0 +1,133 @@
+<app-navbar></app-navbar>
+<div class="m-2">
+    <div class="row m-2">
+        <div class="col">
+            <h3 class="text-muted">Bienvenido <strong class="h2 text-white">{{client?.nombre}}</strong> estos tus
+                pedidos del día
+                de hoy</h3>
+        </div>
+        <div class="col col-auto">
+            <div class="">
+                <a class="btn btn-primary m-1" data-toggle="collapse" href="#collapseExample" role="button"
+                    aria-expanded="false" aria-controls="collapseExample">
+                    <i class="far fa-user"></i>
+                </a>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2"
+                    (click)="getOlds()" aria-expanded="false" aria-controls="collapseExample">
+                    Pedidos Anteriores
+                </button>
+                <a href="#" class="btn btn-primary m-1" routerLink="/home">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <app-cliente *ngIf="client" [cliente]="client"></app-cliente>
+    <hr>
+    <div class="card-columns">
+        <div class="card" *ngFor="let pedido of today">
+            <div class="card-header" style="background-color:darkred;"></div>
+            <div class="card-body">
+                <h5 class="card-title">Tu Pedido N°: {{pedido.numero}}</h5>
+                <p>Hora estimada de
+                    entrega:&nbsp;<strong class="card-text">{{pedido.horaEstimadaFin | date:'shortTime'}}</strong>
+                </p>
+                <p>Estado de su Pedido:<strong class="card-text">&nbsp;{{estadoPedido[pedido.estado]}}</strong>
+                </p>
+                <p>Forma de entrega : <strong class="card-text">&nbsp;{{ retiro[pedido.tipoEnvio] }}</strong></p>
+                <br>
+                <p class="card-text text-center" style="font-size: large;">Detalle de su pedido</p>
+                <ul *ngFor="let details of pedido.detalles">
+                    <li class="text-secondary">
+                        <div class="row">
+                            <label class="col">
+                                *&nbsp;{{details.cantidad}}-&nbsp;{{details.onModel==='articulo' ? details.articulo.denominacion :details.articulo.nombre}}
+                            </label>
+                            <label class="col col-lg-5"><strong
+                                    class="text-right">{{details.subtotal|currency}}</strong>
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+                <div class="div" *ngIf="pedido.tipoEnvio===0">
+                    <div class="col" style="background-color: green; text-align: center;">
+                        <span>Usted obtiene un descuento del 10% </span>
+                    </div>
+                </div>
+                <div class="card-footer" style="height: 10%;">
+                    <div class="row">
+                        <div class="col-1"></div>
+                        <div class="col">
+                            <h5 class="text-secondary text-center"><strong>TOTAL:</strong></h5>
+                        </div>
+                        <div class="col">
+                            <h4 class="card-text text-center">
+                                {{(pedido.tipoEnvio!==0 ? totales(pedido.detalles) : totales(pedido.detalles)-(totales(pedido.detalles)*10)/100)|currency}}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mt-3">
+    <div class="collapse" id="collapseExample2">
+        <div class="card m-2" style="width: auto;background-color: rgb(65, 64, 64); border-color: white;">
+            <div class="container">
+                <div class="card m-2" style="background-color: gray;" *ngFor="let pedido of hoyNo">
+                    <div class="card-header" style="background-color: darkslategray;">
+                        <h5 class="text-center"><strong>Pedidos Anteriores</strong></h5>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Tu Pedido N°: {{pedido.numero}}</h5>
+                        <p class="card-title">Hora estimada de
+                            entrega:&nbsp;<strong
+                                class="card-text">{{pedido.horaEstimadaFin | date:'shortTime'}}</strong>
+                        </p>
+                        <p class="card-title">Estado de su Pedido:<strong
+                                class="card-text">&nbsp;{{estadoPedido[pedido.estado]}}</strong>
+                        </p>
+                        <p class="card-title">Forma de entrega : <strong
+                                class="card-text">&nbsp;{{ retiro[pedido.tipoEnvio] }}</strong>
+                        </p>
+                        <br>
+                        <p class="card-text text-center" style="font-size: large;">Detalle de su pedido</p>
+                        <ul *ngFor="let details of pedido.detalles">
+                            <li class="text-secondary">
+                                <div class="row">
+                                    <label class="col card-title">
+                                        *&nbsp;{{details.cantidad}}-&nbsp;{{details.onModel==='articulo' ? details.articulo.denominacion :details.articulo.nombre}}
+                                    </label>
+                                    <label class="col col-lg-5 card-title"><strong
+                                            class="text-right">{{details.subtotal|currency}}</strong>
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="div" *ngIf="pedido.tipoEnvio===0">
+                            <div class="col" style="background-color: green; text-align: center;">
+                                <span>Usted obtiene un descuento del 10% </span>
+                            </div>
+                        </div>
+                        <div class="card-footer" style="height: 10%;">
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col">
+                                    <h5 class="text-secondary text-right card-title"><strong
+                                            class="card-title">TOTAL:</strong></h5>
+                                </div>
+                                <div class="col">
+                                    <h4 class="card-text">
+                                        {{(pedido.tipoEnvio!==0 ? totales(pedido.detalles) : totales(pedido.detalles)-(totales(pedido.detalles)*10)/100)|currency}}
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

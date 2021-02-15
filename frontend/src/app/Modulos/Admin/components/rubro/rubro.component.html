@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 mt-2">
+            <div class="col">
+                <form [formGroup]='forma' (ngSubmit)="addRubro()">
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control" placeholder="Nuevo Rubro" formControlName="denominacion" [class.is-invalid]="denoNoValido" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-success" type="submit" id="button-addon2"><i
+                                    class="fa fa-save"></i></button>
+                        </div>
+                    </div>
+
+                    <small *ngIf="denoNoValido" class="text-danger">Este campo es obligatorio</small>
+                </form>
+
+            </div>
+        </div>
+
+        <div class="col-sm-7">
+            <div class="col justify-content-center">
+                <ul class="list-group-flush">
+                    <li *ngFor="let art of rubro" class="card col-md-auto m-2" style="width: 70%;">
+                        <div class="row no-gutters">
+                            <div class="col-9">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">{{art.denominacion | titlecase}}</h5>
+                                </div>
+                            </div>
+                            <div class="col-3 mx-auto my-auto">
+                                <button class="btn btn-danger btn-md" (click)="delete(art._id)">
+                                    <i class="fa fa-trash-alt" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!cargando && rubro.length === 0" class="text-center mt-3 animated fadeIn faster">
+        <h4 class="alert-heading text-warning">No hay registros</h4>
+        <p>
+            <i class="fa fa-exclamation fa-2x text-warning"></i>
+        </p>
+    </div>
+
+    <div *ngIf="cargando" class="text-center mt-3 animated fadeIn faster">
+        <h4 class="alert-heading text-white">Cargando</h4>
+        <p>
+            <i class="fa fa-sync-alt fa-spin fa-2x text-white"></i>
+        </p>
+        <p class="mb-0 text-white">
+            Espere por Favor
+        </p>
+    </div>
+</div>

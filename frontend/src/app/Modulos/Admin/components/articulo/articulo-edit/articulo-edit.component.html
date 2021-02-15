@@ -1,0 +1,124 @@
+<div class="container">
+    <h2 class="mt-2">Articulo<small> Ingrese un nuevo Articulo</small></h2>
+    <hr>
+
+    <div class="row text-right">
+        <div class="col">
+            <button class="btn btn-outline-danger" routerLink="/admin/articulos">
+                <i class="fa fa-arrow-left"></i>
+                Regresar
+            </button>
+        </div>
+    </div>
+
+    <div class="row animated fadeIN faster">
+        <div class="col">
+
+            <form autocomplete="off" [formGroup]="formas" (ngSubmit)="addArticulo()">
+
+                <div class="form-group">
+
+                    <label>Nombre</label>
+                    <input class="form-control" type="text" placeholder="Ingrese el nombre del Articulo" formControlName="denominacion" [class.is-invalid]="denoNoValido">
+                    <small *ngIf="denoNoValido" class="text-danger">Este campo es obligatorio</small>
+
+                    <div class="row">
+                        <label class="col">Precio compra</label>
+                        <label class="col">Precio venta</label>
+                    </div>
+
+                    <div class="row">
+                        <div class="col input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="number" class="form-control" formControlName="precioCompra" [class.is-invalid]="pCNoValido">
+
+                        </div>
+
+                        <div class="col input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="number" class="form-control" formControlName="precioVenta" [class.is-invalid]="pVNoValido">
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <small *ngIf="pCNoValido" class="col text-danger">Ingrese compra venta</small>
+                        <small *ngIf="pVNoValido" class="col text-danger">Ingrese precio venta</small>
+                    </div>
+
+                    <div class="row">
+                        <label class="col">Stock Actual</label>
+                        <label class="col">Unidad de medida</label>
+                    </div>
+
+                    <div class="row">
+                        <div class="col input-group">
+                            <input type="number" class="form-control" formControlName="stockActual" [class.is-invalid]="stockNoValido">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Cantidad</span>
+                            </div>
+
+                        </div>
+
+                        <div class="col input-group">
+                            <input type="text" class="form-control" placeholder="Indique unidad de medida" formControlName="unidadMedidad" [class.is-invalid]="unNoValido">
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <small *ngIf="stockNoValido" class="col text-danger">Ingrese cantidad de articulos</small>
+                        <small *ngIf="unNoValido" class="col text-danger">2 caracteres maximo</small>
+                    </div>
+
+                    <div class="row">
+                        <label class="col"></label>
+                        <label class="col">Rubro</label>
+                    </div>
+
+                    <div class="row">
+                        <div class="col text-center">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" formControlName="esInsumo" id="inlineRadio1" value="true" [class.is-invalid]="insumoNoValido">
+                                <label class="form-check-label" for="inlineRadio1">Es Insumo</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" formControlName="esInsumo" id="inlineRadio2" value="false" [class.is-invalid]="insumoNoValido">
+                                <label class="form-check-label" for="inlineRadio2">No es Insumo</label>
+                            </div>
+                        </div>
+
+                        <div class="col input-group mb-3">
+                            <select type="text" class="form-control" formControlName="rubro" [class.is-invalid]="rubroNoValido">
+                                <option *ngFor="let rubro of rubros" [value]="rubro.denominacion | titlecase">
+                                    {{rubro.denominacion | titlecase}}
+                                </option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <small *ngIf="insumoNoValido" class="col text-danger">Selecione si es Insumo</small>
+                        <small *ngIf="rubroNoValido" class="col text-danger">Selecione un rubro</small>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-lg btn-outline-primary" style="width: 45%;">
+                            <i class="fa fa-save"></i>
+                            Guardar
+                        </button>
+                    </div>
+
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>

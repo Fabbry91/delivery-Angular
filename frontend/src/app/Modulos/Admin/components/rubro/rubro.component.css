@@ -1,0 +1,12 @@
+.card-text {
+  color: black;
+}
+
+.cardOne {
+  background-color: black;
+}
+
+.rubro {
+  display: inline-flex;
+  justify-content: center;
+}

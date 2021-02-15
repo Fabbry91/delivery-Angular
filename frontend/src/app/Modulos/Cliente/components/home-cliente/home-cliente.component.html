@@ -1,0 +1,129 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <div class="card-header" style="height: 5%; border-color: darkred;">
+        <div class="container text-center">
+            <h1 class="display-4">El Buen Sabor</h1>
+            <p class="lead">Los mejores platos y bebidas. Podes pedir lo que se que mas te guste!!!</p>
+        </div>
+    </div>
+</div>
+
+<div class="row m-2">
+    <div class="col-4" style="background-color: darkred;">
+        <div class="row m-1">
+            <h2 class="text-center">Pedidos <a href="#" class="btn" style="background-color: darkred;" routerLink="/cliente-pedido"><i class="fas fa-arrow-circle-right"
+                    style="color: white; font-size: 200%;"></i></a></h2>
+        </div>
+        <hr>
+        <div class="row">
+            <h5 class="col text-white" style="float: left;">Detalle Pedido</h5>
+            <h5 class="col text-white" style="float: right;">Subtotales</h5>
+        </div>
+        <hr>
+        <div class="">
+            <ul *ngFor="let carro of carroSduplicar; let i=index">
+                <li>
+                    <div class="row">
+                        <strong class="col" style="font-size: large;">{{carro.cantidad}}&nbsp;{{carro.onModel === 'articulo' ? carro.articulo.denominacion: carro.articulo.nombre }}
+                        </strong>
+                        <strong class="col-md-auto" style="font-size: large;">
+                            {{carro.subtotal || carro.subtotal |currency}}
+                            &nbsp;&nbsp;&nbsp;
+                        </strong>
+                        <button class="col col-sm-2 btn btn-outline-warning mr-2" (click)="delete(i)">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+            <hr>
+            <div class="row">
+                <div class="col text-right"><strong>Total:</strong></div>
+                <div class="col-md-auto text-left">
+                    <strong style="font-size: large;" *ngIf="entrega==false">{{totalPedido|currency}}</strong>
+                    <strong style="font-size: large;" *ngIf="entrega===true">{{totalPedido-((totalPedido*10)/100)|currency}}</strong>
+                </div>
+                <div class="col col-sm-2"></div>
+
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-7">
+                    <h6>Usted selecciono:<span *ngIf="entrega==false"><br>Pedido para LLEVAR</span><span *ngIf="entrega==true"><br>Para comer AQUI</span></h6>
+                </div>
+                <div class="col-md-auto">
+                    <button *ngIf="entrega==false" class="btn btn-outline-warning btn-lg m-1" (click)="pedido()">
+                        <i class="fas fa-motorcycle"></i>
+                    </button>
+                    <button *ngIf="entrega==true" class="btn btn-outline-warning btn-lg" (click)="pedido()">
+                        <i class="fas fa-drumstick-bite"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col col" style="background-color: green; text-align: center;" *ngIf="entrega===true">Usted tiene un descuento del 10%
+            </div>
+            <div class="row">
+                <button type="button" *ngIf="carroSduplicar.length>0" (click)="pedidoCompleto()" class="btn btn-outline-success btn-block mt-4 m-2">
+                    Realizar Pedido
+                </button>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="col-8">
+
+        <div class="input-group m-2">
+            <input type="text" class="form-control" placeholder="Buscar" [(ngModel)]="filterProducto">
+            <div class="input-group-append mr-2">
+                <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search" aria-hidden="true"></i>Buscar</button>
+            </div>
+        </div>
+
+        <div class="card-columns m-2">
+            <div class="card animated fadeIn fast" *ngFor="let mano of listManofacturado |filter:'nombre' : filterProducto; let i=i">
+                <div class="card-header" style="background-color: darkslategray;"></div>
+                <div class="card-body">
+                    <h5 class="card-text">{{mano.nombre}}</h5>
+                    <p class="card-text" *ngIf="mano.detalle"></p>
+                    <ul *ngFor="let det of mano.detalle">
+                        <li class="list text-muted">{{ det.cantidad }} {{ det.articulo.unidadMedidad}} {{det.articulo.denominacion|titlecase}}
+                        </li>
+                    </ul>
+                    <h5 class="text-center card-text"><strong>{{ mano.precio |currency }}</strong></h5>
+
+                    <button type="button" class="btn btn-outline-primary btn-block" (click)="anadir(mano, 'articulomanofacturado')">
+                        <i class="fas fa-cart-arrow-down"></i>
+                        Añadir
+                    </button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="input-group m-2">
+            <button class="btn btn-block btn-outline-success">
+                <h3>Añade lo que mas te guste!! &nbsp;&nbsp;
+                    <i class="fas fa-smile-beam"></i></h3>
+            </button>
+        </div>
+        <hr>
+        <div class="card-columns m-2">
+            <div class="card animated fadeIn fast" *ngFor="let art of listArticulo |filter:'denominacion' : filterProducto; let i=i ">
+                <div class="card-header" style="background-color: darkred;">
+                </div>
+                <div class="card-body" id="cardArt">
+                    <div class="row">
+                        <h5 class="col card-title"><strong>{{ art.denominacion | titlecase}}
+                                <small>&nbsp;{{art.precioVenta|currency}}</small></strong></h5>
+                    </div>
+                    <button type="button" class="btn btn-outline-success btn-block" (click)="anadir(art, 'articulo')">
+                        <i class="fas fa-cart-arrow-down"></i>
+                        Añadir
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

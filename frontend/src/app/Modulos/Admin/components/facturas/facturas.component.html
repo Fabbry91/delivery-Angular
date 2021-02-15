@@ -1,0 +1,140 @@
+<div class="m-3">
+    <div class=" table-responsive">
+        <table *ngIf="!cargando && fact.length > 0" class="table table-bordered table-dark text-center mt-2">
+            <thead style="background-color: rgb(31, 31, 31);">
+                <tr>
+                    <th scope="col" style="font-size: large;">Facturado</th>
+                    <th scope="col" style="font-size: large;">Fecha</th>
+                    <th scope="col" style="font-size: large;">Factura</th>
+                    <th scope="col" style="font-size: large;">Envio</th>
+                    <th scope="col" style="font-size: large;">Descuento total</th>
+                    <th scope="col" style="font-size: large;">Monto Descuento</th>
+                </tr>
+            </thead>
+            <tbody class="bodyTable">
+                <tr *ngFor="let f of fact| paginate: { itemsPerPage: 7, currentPage: p };let i=index">
+                    <td>Factura N° {{f.numero}}</td>
+                    <td>{{f.fecha | date:'short'}}</td>
+                    <td>
+                        <button type="button" class="btn btn-outline-warning" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" (click)="showClient(f)">
+                            <i class="fas fa-user"></i>&nbsp;<i class="fas fa-print"></i>
+                        </button>
+                    </td>
+                    <td *ngIf="f.pedido.tipoEnvio===0" style="background-color:green;"><strong>En LOCAL</strong></td>
+                    <td *ngIf="f.pedido.tipoEnvio===1" style="background-color:red;"><strong>Para LLEVAR</strong></td>
+                    <td>{{f.montoDescuento | currency}}</td>
+                    <td>{{f.total|currency}}</td>
+                </tr>
+            </tbody>
+
+            <tfoot style="background-color: rgb(31, 31, 31);">
+                <tr>
+                    <th></th>
+                    <td></td>
+                    <td></td>
+                    <td>TOTALES:</td>
+                    <td style="font-size: large;">{{getDescuento()|currency}}</td>
+                    <td style="font-size: large;">{{getTotalFact()|currency}}</td>
+                </tr>
+            </tfoot>
+        </table>
+        <pagination-controls class="text-center" (pageChange)="p = $event"></pagination-controls>
+    </div>
+
+    <div class="container">
+        <div class="collapse" id="collapseExample">
+            <div class="card">
+                <div class="card-header" style="background-color: darkred;"></div>
+                <div class="card card-body text-center">
+                    <div class="div">
+                        <div class="row">
+                            <div class="col">
+                                <span class="h2" style="background-color: darkred;"><img src="/assets/img/loguito2.png" width="40" height="40" class="d-inline-block align-top" alt="" loading="lazy">El Buen Sabor</span>
+                                <p>Ciudad de Mendoza &nbsp; CP:5530</p>
+                                <p>Telefono:(261)4251095</p>
+                            </div>
+
+                            <div class="col-md-auto"><span class="h1" style="background-color: gray;">X</span></div>
+                            <div class="col">
+                                <h4 style="color:darkred;">Factura: {{client?.numero}}</h4>
+                                <h5 style="color:darkred;">Fecha: {{client?.fecha | date:'dd/MM/yyyy'}}</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-left">
+                                <p>Cliente:<span class="card-text">{{client?.pedido.cliente.apellido}} {{client?.pedido.cliente.nombre}}</span></p>
+                                <p>Email:<span class="card-text"> &nbsp;{{client?.pedido.cliente.email}}</span></p>
+                                <p>Contacto:<span class="card-text">&nbsp;{{client?.pedido.cliente.telefono}}</span></p>
+                            </div>
+                            <div class="col">
+                                <p class="card-text" style="font-size: medium;">Domicilio cliente:</p>
+                                <p>Calles:<span class="card-text text-left">&nbsp;{{client?.pedido.cliente.domicilio.calle}} {{client?.pedido.cliente.domicilio.numero}}</span></p>
+                                <p>Localidad:<span class="card-text text-left">&nbsp;{{client?.pedido.cliente.domicilio.localidad}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" table-responsive">
+                        <div class="div" id='table' #table>
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Cantidad</th>
+                                        <th scope="col">Articulo</th>
+                                        <th scope="col">Precio</th>
+                                        <th scope="col">T.Promedio</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let d of arreglo">
+                                        <th scope="row">{{d.cantidad}}</th>
+                                        <td>{{d.articulo.nombre||d.articulo.denominacion | titlecase}}</td>
+                                        <td>{{d.articulo.precio || d.articulo.precioVenta | currency}}</td>
+                                        <td *ngIf="d.articulo.tiempoDeCoccion">-</td>
+                                    </tr>
+                                    <tr *ngIf="client?.pedido.tipoEnvio==0">
+                                        <th style="background: green;">Por consumo en local</th>
+                                        <td style="background: green;">Descuento</td>
+                                        <td style="background: green;">-{{client?.montoDescuento|currency}}</td>
+                                        <td style="background: green;"></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <th></th>
+                                    <td>TOTAL:</td>
+                                    <td>{{client?.total|currency}}</td>
+                                    <td>-</td>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="col-md-6 offset-md-3">
+                            <div>
+                                <p class="card-text h5">Pedido numero:{{client?.pedido.numero}}</p>
+                            </div>
+                            <!--<button type="button" class="btn btn-outline-primary btn-block" (click)="downloadPDF()">
+                                <i class="fas fa-print" style="font-size: 150%;"></i>
+                            </button>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="!cargando && fact.length === 0" class="text-center mt-3 animated fadeIn faster">
+        <h4 class="alert-heading text-warning">No hay registros</h4>
+        <p>
+            <i class="fa fa-exclamation fa-2x text-warning"></i>
+        </p>
+    </div>
+
+    <div *ngIf="cargando" class="text-center mt-3 animated fadeIn faster">
+        <h4 class="alert-heading text-white">Cargando</h4>
+        <p>
+            <i class="fa fa-sync-alt fa-spin fa-2x text-white"></i>
+        </p>
+        <p class="mb-0 text-white">
+            Espere por Favor
+        </p>
+    </div>
+</div>

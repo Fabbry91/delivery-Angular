@@ -1,0 +1,114 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-8 mt-2">
+            <input type="text" class="form-control" placeholder="Buscar" [(ngModel)]="filterProducto" style="width: 90%;">
+        </div>
+        <div class="col-4 mt-2">
+            <button type="button" class="btn btn-outline-success btn-block" routerLink='/admin/articulo/nuevo' style="width: 80%;">
+                Nuevo
+            </button>
+        </div>
+    </div>
+
+    <div class="col-md offset-md-3">
+        <div class="card alert alert-warning alert-dismissible fade show" *ngIf="this.stock.length>0" style="border-color: darkred;">
+            <div class="card-header">
+                <i class="fa fa fa-exclamation-triangle text-danger" style="font-size: 200%;"></i>&nbsp;&nbsp;<strong>Bajo stock!!</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="card-body">
+                <ul *ngFor="let s of this.stock">
+                    <li><i class="fa fa-circle" style="font-size: 50%;"></i>&nbsp;&nbsp;&nbsp;<strong>Articulo:</strong>&nbsp;{{s.denominacion| titlecase}}<strong>&nbsp;disponibles:</strong>&nbsp;{{s.stockActual}}&nbsp;{{s.unidadMedidad}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class=" table-responsive">
+        <div class="div" id=table #table>
+            <table *ngIf="!cargando && articulos.length > 0" class="table table-bordered table-dark text-center mt-2">
+                <thead style="background-color: rgb(31, 31, 31);">
+                    <tr>
+                        <th scope="col">PRODUCTO</th>
+                        <th scope="col">PRECIO COMPRA</th>
+                        <th scope="col">PRECIO VENTA</th>
+                        <th scope="col">STOCK</th>
+                        <th scope="col">U.MEDIDA</th>
+                        <th scope="col">INSUMO</th>
+                        <th scope="col">RUBRO</th>
+                        <th scope="col">OPCIONES</th>
+                    </tr>
+                </thead>
+
+                <tbody class="bodyTable">
+                    <tr *ngFor="let art of articulos |filter:'denominacion' : filterProducto| paginate: { itemsPerPage: 7, currentPage: p }">
+                        <th>{{art.denominacion | titlecase}}</th>
+                        <td>{{art.precioCompra | currency}}</td>
+                        <td>{{art.precioVenta | currency}}</td>
+                        <td>{{art.stockActual}}</td>
+                        <td>{{art.unidadMedidad | titlecase}}</td>
+                        <td>
+                            <div *ngIf="art.esInsumo == true"> Si </div>
+                            <div *ngIf="art.esInsumo == !true"> No</div>
+                        </td>
+                        <td>{{art.rubro}}</td>
+
+                        <td>
+                            <button class="btn btn-danger m-1 btn-sm" (click)="deleteArticulo(art)">
+                            <i class="fa fa-trash-alt" aria-hidden="true"></i>
+                        </button>
+                            <button class="btn btn-warning btn-sm" [routerLink]="['/admin/articulo',art._id]">
+                            <i class="fas fa-edit" aria-hidden="true"></i>
+                        </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div *ngIf="cargando" class="text-center mt-3 animated fadeIn faster">
+            <h4 class="alert-heading text-white">Cargando</h4>
+            <p>
+                <i class="fa fa-sync-alt fa-spin fa-2x text-white"></i>
+            </p>
+            <p class="mb-0 text-white">
+                Espere por Favor
+            </p>
+        </div>
+
+        <div *ngIf="!cargando && articulos.length === 0" class="text-center mt-3 animated fadeIn faster">
+            <h4 class="alert-heading text-warning">No hay registros</h4>
+            <p>
+                <i class="fa fa-exclamation fa-2x text-warning"></i>
+            </p>
+        </div>
+
+        <pagination-controls class="text-center" (pageChange)="p = $event"></pagination-controls>
+
+    </div>
+
+    <!--<div class="col-md-6 offset-md-3">
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="downloadPDF()">
+            <i class="fas fa-print" style="font-size: 150%;"></i>
+        </button>
+    </div>-->
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 offset-md-2">
+                <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <div class="row">
+                        <i class="fa fa fa-exclamation-circle text-danger" style="font-size: 200%;"> &nbsp;</i><strong>Error!</strong>{{mensaje}}.
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

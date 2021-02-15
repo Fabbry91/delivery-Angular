@@ -1,0 +1,37 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <div class="card-header" style="height: 5%; border-color: darkred;">
+        <div class="container text-center">
+            <h1 class="display-4">El Buen Sabor</h1>
+            <p class="lead">Seccion Cocina</p>
+        </div>
+    </div>
+</div>
+
+<div class="card-columns m-3">
+    <div class="card" *ngFor="let pedido of listPedido; let i = index" style="width: auto;">
+        <div class="card-header" style="background-color:darkred;"></div>
+        <div class="card-body">
+            <h5 class="card-title">Tu Pedido N°: {{pedido.numero}}</h5>
+            <p>Hora estimada del Pedido:&nbsp;<strong
+                    class="card-text">{{pedido.fecha | date:'hh:mm, dd/MM/yy'}}</strong>
+            </p>
+            <p>Forma de Retiro:<strong class="card-text">&nbsp;{{tipoRetiro[pedido.tipoEnvio]}}</strong>
+            </p>
+            <p>Hora de finalizacion : <strong class="card-text">&nbsp;{{ pedido.horaEstimadaFin|date:'hh:mm' }}</strong>
+            </p>
+            <ul *ngFor="let details of pedido.detalles">
+                <li class="text-secondary">
+                    <div class="row">
+                        <label class="col">
+                            *&nbsp;{{details.cantidad}}-&nbsp;{{details.onModel==='articulo' ? details.articulo.denominacion :details.articulo.nombre}}
+                        </label>
+                    </div>
+                </li>
+            </ul>
+            <button type="button" (click)="updatePedido(pedido)" class="btn btn-dark btn-block mt-4 m-2">
+                Terminado <i class="fas fa-check"></i>
+            </button>
+        </div>
+    </div>
+</div>

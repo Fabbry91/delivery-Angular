@@ -1,0 +1,48 @@
+<div class="abs-center  animated fadeIn faster">
+    <div class="card text-center">
+        <div class="card-header">
+            <h4 class="card-text"><small>Ingresar al </small><strong>El Buen Sabor</strong></h4>
+        </div>
+        <div class="card-body">
+
+            <form autocomplete="on" [formGroup]="forma" (ngSubmit)="guardar()">
+
+                <div class="form-group row">
+                    <div class="col-12">
+                        <input class="form-control" type="email" placeholder="Correo electrónico"
+                            formControlName="email" [class.is-invalid]="emailNoValido">
+                        <small *ngIf="emailNoValido" class="text-danger">Ingrese su email</small>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-12">
+                        <input class="form-control" type="password" placeholder="Nueva Contraseña"
+                            formControlName="pass" autocomplete="on" [class.is-invalid]="passwordNoValido">
+                        <small *ngIf="passwordNoValido" class="text-danger">Ingrese al minimo 6
+                            caracteres</small>
+                    </div>
+                </div>
+
+                <hr>
+                <div class="form-group row">
+                    <div class="input-group col">
+                        <button type="submit" class="btn btn-outline-primary btn-block">
+                            <i class="fa fa-save"></i>
+                            Ingresar
+                        </button>
+                    </div>
+                </div>
+
+                <!--<div class="form-group row">
+                    <div class="input-group col">
+                        <button type="button" class="btn btn-google btn-block " (click)="loginGO()">
+                            <i class="fab fa-google"></i>
+                            Google
+                        </button>
+                    </div>
+                </div>-->
+                <a href="#" class="card-link" style="color:blue" routerLink="/registro">¿No tienes cuenta?</a>
+            </form>
+        </div>
+    </div>

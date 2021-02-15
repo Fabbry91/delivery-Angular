@@ -1,0 +1,15 @@
+.main-header {
+  position: relative;
+  background: url(../../../../assets/img/HamburguesaDia.png);
+  background-size: cover;
+  min-height: 700px;
+}
+
+.background-overlay {
+  position: absolute;
+  background: rgba(0, 1, 19, 0.5);
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 100%;
+}

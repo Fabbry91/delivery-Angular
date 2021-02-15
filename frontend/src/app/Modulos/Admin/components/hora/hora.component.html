@@ -1,0 +1,102 @@
+<div class="container">
+    <h2 class="mt-2">Horarios <small>de atencion</small></h2>
+    <hr>
+
+    <div class="row text-right">
+        <div class="col">
+            <button *ngIf="horarioSermanal.length <=6" class="btn btn-outline-success mr-1" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Añade días</button>
+            <button class="btn btn-outline-danger" routerLink="/admin/articulos">
+                <i class="fa fa-arrow-left"></i>
+                Regresar
+            </button>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card text-white bg-primary mb-3" style="max-width: 170%;">
+                <div class="card-header">Dias y Horarios</div>
+                <div class="list-group list-group-flush" *ngFor="let h of horarioSermanal">
+                    <ul *ngFor="let d of days;let i=index;">
+                        <li class="list-group-item card-text" *ngIf="h.nrodia==[i]">
+                            <div class="row">
+                                <p class="col-sm-6 card-text" style="font-size:medium;">{{d}} horario</p>
+                                <p class="card-text" style="font-size:medium;"> {{h.apertura}} a {{h.cierre}}</p>
+                                <button class="ml-2 btn btn-warning btn-sm" (click)="show(h)" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">
+                                <i class="fas fa-edit" aria-hidden="true"></i>
+                            </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col collapse multi-collapse" id="multiCollapseExample2">
+            <div class="card card-body" style="background-color: rgb(12, 12, 12); border-color: green;">
+                <div class="row animated fadeIN faster">
+                    <div class="col">
+
+                        <form autocomplete="off" [formGroup]="forma">
+
+
+                            <!--<label>ID</label>-->
+                            <div class="input-group mb-3">
+
+                                <input class="form-control" type="hidden" placeholder="Ingrese el especial del dia" formControlName="_id" [class.is-invalid]="">
+                            </div>
+
+                            <div class="col-12 form-group mt-2">
+                                <label>Seleccione el día</label>
+                                <div class="input-group">
+                                    <select type="text" class="form-control" formControlName="nrodia" [class.is-invalid]="diaNoValido">
+                            <option *ngFor="let d of days; let i = index" [value]="i">
+                                {{ d| titlecase}}
+                            </option>
+                        </select>
+                                </div>
+                                <small *ngIf="diaNoValido" class="text-danger">Ingrese un dia de la semana</small>
+
+                                <div class="row">
+                                    <label class="col">Apertura</label>
+                                    <label class="col">Cierre</label>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col input-group">
+                                        <input type="text" class="col-auto form-control" formControlName="apertura" [class.is-invalid]="appValido">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">hh:mm</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col input-group">
+                                        <input type="text" class="form-control" formControlName="cierre" [class.is-invalid]="cieNoValido">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">hh:mm</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <small *ngIf="appValido" class="text-danger">Ingrese horario Apertura</small>
+                                    </div>
+                                    <small *ngIf="cieNoValido" class="col text-danger">Ingrese horario Cierre</small>
+                                </div>
+
+                                <div class="text-center">
+                                    <button type="nutton" class="btn btn-lg btn-outline-primary" (click)="guardar()" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">
+                            <i class="fa fa-save"></i>
+                            Guardar
+                        </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

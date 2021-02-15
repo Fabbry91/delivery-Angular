@@ -1,0 +1,65 @@
+<div class="m-3">
+    <div class="card-columns" *ngIf="!cargando && listPedido.length > 0">
+        <div class="card" *ngFor="let pedido of listPedido">
+            <div class="card-header" style="background-color:darkred;"></div>
+            <div class="card-body">
+                <h5 class="card-title"><span class="text-muted">A Facturar:</span><br> Pedido N°: {{pedido.numero}}</h5>
+                <p>Hora estimada del Pedido:&nbsp;<strong class="card-text">{{pedido.fecha | date:'hh:mm, dd/MM/yy'}}</strong>
+                </p>
+                <p>Forma de Retiro:<strong class="card-text">&nbsp;{{tipoRetiro[pedido.tipoEnvio]}}</strong>
+                </p>
+                <p>Hora de finalizacion : <strong class="card-text">&nbsp;{{ pedido.horaEstimadaFin|date:'hh:mm' }}</strong>
+                </p>
+                <ul *ngFor="let details of pedido.detalles">
+                    <li class="text-secondary">
+                        <div class="row">
+                            <label class="col">
+                                -&nbsp;{{details.cantidad}}-&nbsp;{{details.onModel==='articulo' ? details.articulo.denominacion :details.articulo.nombre}}
+                            </label>
+                            <label class="col col-lg-5"><strong
+                                    class="text-right">{{details.subtotal|currency}}</strong>
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+                <div class="div" *ngIf="pedido.tipoEnvio===0">
+                    <div class="col" style="background-color: green; text-align: center;">
+                        <span>Usted obtiene un descuento del 10% </span>
+                    </div>
+                </div>
+                <div class="card-footer" style="height: 10%;">
+                    <div class="row">
+                        <div class="col-1"></div>
+                        <div class="col">
+                            <h5 class="text-secondary text-center"><strong>TOTAL:</strong></h5>
+                        </div>
+                        <div class="col">
+                            <h4 class="card-text text-center">
+                                {{(pedido.tipoEnvio!==0 ? getTotal(pedido.detalles) : getTotal(pedido.detalles)-(getTotal(pedido.detalles)*10)/100)|currency}}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" (click)="crearFactura(pedido)" class="btn btn-dark btn-block mt-4 m-2">
+                    Facturar &nbsp; <i class="fas fa-file-invoice-dollar" style="font-size:150%;"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!cargando && listPedido.length === 0" class="text-center mt-3 animated fadeIn faster">
+        <h4 class="alert-heading text-warning">No hay registros a Facturar</h4>
+        <p>
+            <i class="fa fa-exclamation fa-2x text-warning"></i>
+        </p>
+    </div>
+
+    <div *ngIf="cargando" class="text-center mt-3 animated fadeIn faster">
+        <h4 class="alert-heading text-white">Cargando</h4>
+        <p>
+            <i class="fa fa-sync-alt fa-spin fa-2x text-white"></i>
+        </p>
+        <p class="mb-0 text-white">
+            Espere por Favor
+        </p>
+    </div>
+</div>

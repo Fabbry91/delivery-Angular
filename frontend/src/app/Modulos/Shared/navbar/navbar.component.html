@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-black">
+    <a class="navbar-brand" style="color: white;">
+        <img src="/assets/img/loguito2.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy"> El Buen Sabor
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul *ngIf="datos==!'cocina'&& datos==!'admin'" class="navbar-nav mr-auto">
+            <li class="nav-item active" routerLinkActive="active">
+                <a class="nav-link" style="color: rgb(156, 154, 154)" [routerLink]="['/home']">Home <span
+                        class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active" routerLinkActive="active" *ngIf="cargando==false">
+                <a class="nav-link" style="color: rgb(156, 154, 154)" [routerLink]="['/login']">loguin <span
+                        class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+
+        <ul *ngIf="datos=='cocina'" class="navbar-nav mr-auto">
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" href="#" style="color: rgba(156, 154, 154, 0.411)" [routerLink]="['/cocina']">Cocina</a>
+            </li>
+        </ul>
+        <ul *ngIf="datos=='admin'" class="navbar-nav mr-auto">
+            <li class="nav-item active" routerLinkActive="active">
+                <a class="nav-link" style="color: rgba(156, 154, 154, 0.411)" [routerLink]="['/admin/vendidos']">
+                    Mas Vendidos<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active" routerLinkActive="active">
+                <a class="nav-link" style="color: rgba(156, 154, 154, 0.411)" [routerLink]="['/admin/factura']">
+                    Facturas<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active" routerLinkActive="active">
+                <a class="nav-link" style="color: rgba(156, 154, 154, 0.411)" [routerLink]="['/admin/pedidos']">A
+                    Facturar<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" href="#" style="color: rgba(156, 154, 154, 0.411)" [routerLink]="['/admin/manofacturado']">Manofacturados</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" href="#" style="color: rgba(156, 154, 154, 0.411)" [routerLink]="['/admin/articulos']">Articulo</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" href="#" style="color: rgba(156, 154, 154, 0.411)" [routerLink]="['/admin/rubro']">Rubro</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" href="#" style="color: rgba(156, 154, 154, 0.411)" [routerLink]="['/admin/clientes']">Personas</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" href="#" style="color: rgba(156, 154, 154, 0.411)" [routerLink]="['/admin/hora']">Horarios</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav mx-6" *ngIf="user$ |async as user">
+            <li class="nav-item" *ngIf="user" routerLinkActive="active">
+                <a href="#" class="nav-link" (click)="onLogout()" style="color: rgba(156, 154, 154, 0.411)">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" style="color: white"> {{ user?.email }}</a>
+            </li>
+        </ul>
+    </div>
+</nav>

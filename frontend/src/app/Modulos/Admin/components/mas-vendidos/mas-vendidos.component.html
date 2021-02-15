@@ -1,0 +1,55 @@
+<div class="container">
+    <h2 class="text-center m-1">Listado de Productos más Vendidos</h2>
+    <hr>
+
+    <div class="row">
+        <div class="table-responsive">
+            <div class="div" id='table' #table>
+                <table *ngIf="!cargando && vendidos.length > 0" class="table table-bordered table-dark text-center mt-2">
+                    <thead style="background-color: rgb(31, 31, 31);">
+                        <tr>
+                            <th scope="col">Posicion</th>
+                            <th scope="col">Articulo</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Precio</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="bodyTable">
+                        <tr *ngFor="let art of vendidos | paginate: { itemsPerPage: 7, currentPage: p };let i=index">
+                            <th>{{i+1}}°</th>
+                            <td>{{art.articulo | titlecase}}</td>
+                            <td>{{art.cantidad }}</td>
+                            <td>{{art.precio|currency}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <pagination-controls class="text-center" (pageChange)="p = $event"></pagination-controls>
+
+            <div *ngIf="cargando" class="text-center mt-3 animated fadeIn faster">
+                <h4 class="alert-heading text-white">Cargando</h4>
+                <p>
+                    <i class="fa fa-sync-alt fa-spin fa-2x text-white"></i>
+                </p>
+                <p class="mb-0 text-white">
+                    Espere por Favor
+                </p>
+            </div>
+
+            <!--<div class="col-md-6 offset-md-3">
+                <button type="button" class="btn btn-outline-primary btn-block" (click)="downloadPDF()">
+                    <i class="fas fa-print" style="font-size: 150%;"></i>
+                </button>
+            </div>-->
+
+            <div *ngIf="!cargando && vendidos.length === 0" class="text-center mt-3 animated fadeIn faster">
+                <h4 class="alert-heading text-warning">No se han vendido</h4>
+                <p>
+                    <i class="fa fa-exclamation fa-2x text-warning"></i>
+                </p>
+                <h4 class="alert-heading text-warning">productos aun.</h4>
+            </div>
+        </div>
+    </div>
+</div>

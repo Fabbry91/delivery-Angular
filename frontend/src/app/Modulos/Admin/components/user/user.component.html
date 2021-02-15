@@ -1,0 +1,72 @@
+<div class="row">
+    <h3 class="col ">Usuario de Empleado</h3>
+    <button class="col-2 btn btn-outline-success mr-3" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+        <i class="fas fa-user-plus" style="font-size: 150%;"></i>
+    </button>
+</div>
+
+<hr>
+<div class="card" style="width: 100%;">
+    <ul class="list-group list-group-flush" *ngFor="let u of userList | paginate: { itemsPerPage: 4, currentPage: p2 }">
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-md">
+                    <h5 class="card-text"><strong class="text-muted">Email:</strong>&nbsp;{{u.email}}</h5>
+                    <h5 class="card-text" *ngIf="u.roles=='cocina'"><strong class="text-muted">Rol:&nbsp;</strong> Cocinero/a
+                    </h5>
+                    <h5 class="card-text" *ngIf="u.roles=='admin'"><strong class="text-muted">Rol:&nbsp;</strong> Administrador
+                    </h5>
+                </div>
+                <button class="col-1 btn btn-warning btn-sm m-1" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample" (click)="showUser(u)">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="col-1 btn btn-danger btn-sm m-1" type="button" (click)="delete(u._id)">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </li>
+    </ul>
+</div>
+<pagination-controls class="text-center" (pageChange)="p2 = $event"></pagination-controls>
+<div class="mt-2 mb-3">
+    <div class="collapse" id="collapseExample2">
+        <div class="card-header" style="background-color: darkred;"></div>
+        <div class="card card-body">
+            <form autocomplete="on" [formGroup]="forma" (ngSubmit)="guardar()">
+
+                <div class="form-group row">
+                    <div class="col">
+                        <input class="form-control" type="hidden" placeholder="ID" formControlName="_id">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-3 card-text">Email:</div>
+                    <div class="col">
+                        <input class="form-control" type="email" placeholder="Correo electrónico" formControlName="email" [class.is-invalid]="emailNoValido">
+                        <small *ngIf="emailNoValido" class="text-danger">Ingrese su email</small>
+                    </div>
+                </div>
+
+                <div class="form-group row" formArrayName="roles">
+                    <div class="col-5 card-text">Rol del usuario :</div>
+                    <div class="col">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="inlineRadio1" [formControlName]="0" value="admin">
+                            <label class="form-check-label card-text" for="inlineRadio1">Administrador</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="inlineRadio2" [formControlName]="0" value="cocina">
+                            <label class="form-check-label card-text" for="inlineRadio2">Cocinero/a</label>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+            <button class="btn btn-block btn-success m-1" type="button" (click)='guardar()' data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+                Guardar <i class="fas fa-save"></i>
+            </button>
+        </div>
+    </div>
+</div>
