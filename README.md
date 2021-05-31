@@ -8,6 +8,7 @@ Para acceder, a la version DEMO de la aplicacion, como usuario en la base se enc
 cliente@gmail.com, cocinero@gmail.com, admin@gmail.com. Las contraseñas usada para los tres es 123456.
 
 Pre-requisitos 📋
+
 Debes contar con las siguientes herramientas instaladas en el ordenador.
 -Node
 -npm
@@ -21,7 +22,9 @@ Para la arquitectura, validacion y Autenticación de los usuarios se utilizó Fi
 Una vez todo configurado, correr comando npm run dev en la carpeta Backend y el comando ng serve -o en la carpeta Frontend.
 
 Development server 🛠️
+
 Ejecutar npm run dev para un servidor dev de NodeJS dentro del servidor de carpetas. Ejecute ng serve para un servidor dev. Navega a http://localhost:4200/. La aplicación se recargará automáticamente si cambias alguno de los archivos fuente.
 
 Despliegue 📦
+
 Ejecute ng build para construir el proyecto. Los artefactos de construcción se almacenarán en el directorio dist/. Utilice la bandera --prod para una construcción de producción.
