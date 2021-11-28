@@ -1,15 +1,139 @@
 .main-header {
-  position: relative;
-  background: url(../../../../assets/img/HamburguesaDia.png);
-  background-size: cover;
-  min-height: 700px;
+  position       : relative;
+  width          : 100%;
+  min-height     : 100vh;
+  display        : flex;
+  justify-content: space-between;
+  align-items    : center;
 }
 
-.background-overlay {
-  position: absolute;
-  background: rgba(0, 1, 19, 0.5);
+.circle {
+  position  : absolute;
+  top       : 0;
+  left      : 0;
+  width     : 100%;
+  height    : 100%;
+  background: darkred;
+  clip-path : circle(70% at right -20%);
+}
+
+header .header {
+  position       : absolute;
+  top            : 0;
+  left           : 0;
+  width          : 100%;
+  padding        : 40px 100px;
+  display        : flex;
+  justify-content: space-between;
+  align-items    : center;
+}
+
+header .header .h2 {
+  position   : relative;
+  display    : flex;
+  align-items: center;
+  font-size  : 30px;
+}
+
+header .header .navigation {
+  position: relative;
+  display : flex;
+}
+
+header .navigation li {
+  list-style  : none;
+  margin-right: 20px;
+}
+
+header .navigation li i {
+  display: inline-block;
+}
+
+.container .h1 {
+  font-size: .8em !important;
+}
+
+.container .title {
+  font-size     : 1.8em;
+  font-weight   : bolder;
+  letter-spacing: 3px;
+}
+
+a {
+  display        : inline-block;
+  border         : darkred solid 2px;
+  color          : #fff;
+  margin-top     : 20px;
+  margin-left    : 5px;
+  letter-spacing : 1px;
+  text-decoration: none;
+  padding        : 8px 20px;
+  border-radius  : 2em;
+}
+
+a:hover {
+  background-color: darkred;
+  transform       : translateY(-4px);
+  box-shadow      : rgba(255, 255, 255, 0.575) 2px 5px 10px;
+}
+
+li {
+  background-color: rgb(141, 40, 40);
+  display         : flex;
+  justify-content : center;
+  align-items     : center;
+  width           : 35px;
+  border-radius   : 2em;
+  padding         : 5px;
+}
+
+li:hover {
+  background-color: #000;
+  transform       : translateY(-10px);
+  transition      : 0.5s;
+}
+
+.p {
+  font-size : 1em;
+  text-align: justify;
+}
+
+.img {
   width: 100%;
-  top: 0;
-  left: 0;
-  height: 100%;
+}
+
+/*Responsive*/
+@media(max-width: 992px) {
+  .container {
+    padding-top: 8em;
+  }
+
+
+}
+
+@media(max-width: 767px) {
+  header .header {
+    padding        : 40px 40px;
+  }  
+  .circle {
+    clip-path : circle(85% at right -20%);
+  }
+
+  .container {
+    padding-top: 150px;
+  }
+  .container .title {
+    font-size     : 1.2em;
+  }
+
+  a{
+    margin-top: 50px;
+  }
+}
+
+@media(max-width: 510px){
+  header .header .navigation {
+    position: absolute;
+    bottom: 0;
+  }
 }
