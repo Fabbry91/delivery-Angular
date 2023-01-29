@@ -10716,7 +10716,7 @@
           _classCallCheck(this, ArticulosService);
 
           this.http = http;
-          this.url = 'https://delivery-fabbry-mean.herokuapp.com/';
+          this.url = 'https://angulardelivery.onrender.com/';
         }
 
         _createClass(ArticulosService, [{
@@ -11139,7 +11139,7 @@
           _classCallCheck(this, ClienteService);
 
           this.http = http;
-          this.url = 'https://delivery-fabbry-mean.herokuapp.com/cliente/';
+          this.url = 'https://angulardelivery.onrender.com/cliente/';
         }
 
         _createClass(ClienteService, [{
@@ -11246,7 +11246,7 @@
           _classCallCheck(this, FacturaService);
 
           this.http = http;
-          this.url = 'https://delivery-fabbry-mean.herokuapp.com/factura/';
+          this.url = 'https://angulardelivery.onrender.com/factura/';
         }
 
         _createClass(FacturaService, [{
@@ -11455,7 +11455,7 @@
           _classCallCheck(this, HorarioService);
 
           this.http = http;
-          this.url = 'https://delivery-fabbry-mean.herokuapp.com/apertura';
+          this.url = 'https://angulardelivery.onrender.com/apertura';
         }
 
         _createClass(HorarioService, [{
@@ -11558,7 +11558,7 @@
           _classCallCheck(this, PedidoService);
 
           this.http = http;
-          this.url = 'https://delivery-fabbry-mean.herokuapp.com/pedido/';
+          this.url = 'https://angulardelivery.onrender.com/pedido/';
         }
 
         _createClass(PedidoService, [{
@@ -11660,7 +11660,7 @@
           _classCallCheck(this, RubroService);
 
           this.http = http;
-          this.url = 'https://delivery-fabbry-mean.herokuapp.com/rubro';
+          this.url = 'https://angulardelivery.onrender.com/rubro';
           this.rubros = [];
         }
 
@@ -11754,7 +11754,7 @@
           _classCallCheck(this, UserService);
 
           this.http = http;
-          this.url = 'https://delivery-fabbry-mean.herokuapp.com/user';
+          this.url = 'https://angulardelivery.onrender.com/user';
         }
 
         _createClass(UserService, [{

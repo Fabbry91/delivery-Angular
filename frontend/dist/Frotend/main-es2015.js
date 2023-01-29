@@ -5410,7 +5410,7 @@ __webpack_require__.r(__webpack_exports__);
 class ArticulosService {
     constructor(http) {
         this.http = http;
-        this.url = 'https://delivery-fabbry-mean.herokuapp.com/';
+        this.url = 'https://angulardelivery.onrender.com/';
     }
     addArticulo(articulo) {
         return this.http.post(`${this.url}articulo`, articulo);
@@ -5628,7 +5628,7 @@ __webpack_require__.r(__webpack_exports__);
 class ClienteService {
     constructor(http) {
         this.http = http;
-        this.url = 'https://delivery-fabbry-mean.herokuapp.com/cliente/';
+        this.url = 'https://angulardelivery.onrender.com/cliente/';
     }
     getClient(id) {
         return this.http.get(this.url + id);
@@ -5682,7 +5682,7 @@ __webpack_require__.r(__webpack_exports__);
 class FacturaService {
     constructor(http) {
         this.http = http;
-        this.url = 'https://delivery-fabbry-mean.herokuapp.com/factura/';
+        this.url = 'https://angulardelivery.onrender.com/factura/';
     }
     getFactura(id) {
         return this.http.get(this.url + id);
@@ -5785,7 +5785,7 @@ __webpack_require__.r(__webpack_exports__);
 class HorarioService {
     constructor(http) {
         this.http = http;
-        this.url = 'https://delivery-fabbry-mean.herokuapp.com/apertura';
+        this.url = 'https://angulardelivery.onrender.com/apertura';
     }
     getHorario(id) {
         id = id ? id : '';
@@ -5842,7 +5842,7 @@ __webpack_require__.r(__webpack_exports__);
 class PedidoService {
     constructor(http) {
         this.http = http;
-        this.url = 'https://delivery-fabbry-mean.herokuapp.com/pedido/';
+        this.url = 'https://angulardelivery.onrender.com/pedido/';
     }
     getPedidos() {
         return this.http.get(this.url);
@@ -5893,7 +5893,7 @@ __webpack_require__.r(__webpack_exports__);
 class RubroService {
     constructor(http) {
         this.http = http;
-        this.url = 'https://delivery-fabbry-mean.herokuapp.com/rubro';
+        this.url = 'https://angulardelivery.onrender.com/rubro';
         this.rubros = [];
     }
     getRubro() {
@@ -5938,7 +5938,7 @@ __webpack_require__.r(__webpack_exports__);
 class UserService {
     constructor(http) {
         this.http = http;
-        this.url = 'https://delivery-fabbry-mean.herokuapp.com/user';
+        this.url = 'https://angulardelivery.onrender.com/user';
     }
     getUsers() {
         return this.http.get(this.url);
