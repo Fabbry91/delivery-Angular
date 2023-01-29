@@ -16,7 +16,7 @@ import { LoginComponent } from './Modulos/Login/login/login.component';
 import { RegistroComponent } from './Modulos/Login/registro/registro.component';
 import { HeaderComponent } from './Modulos/Headers/header/header.component';
 import { HomeClienteComponent } from './Modulos/Cliente/components/home-cliente/home-cliente.component';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/app/environments/environment';
 import { AdmindComponent } from './Modulos/Admin/components/admind/admind.component';
 import { NavbarComponent } from './Modulos/Shared/navbar/navbar.component';
 import { AlertasComponent } from './Modulos/Shared/alertas/alertas.component';
