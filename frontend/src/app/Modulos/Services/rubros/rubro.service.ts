@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RubroService {
 
-  url = 'https://delivery-fabbry-mean.herokuapp.com/rubro';
+  url = 'https://angulardelivery.onrender.com/rubro';
 
   constructor(private http: HttpClient) { }
   rubros: Rubro[] = [];

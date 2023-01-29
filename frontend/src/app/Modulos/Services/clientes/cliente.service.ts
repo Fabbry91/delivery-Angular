@@ -6,7 +6,7 @@ import { Cliente } from '../../Interfaces/cliente';
   providedIn: 'root'
 })
 export class ClienteService {
-  url = 'https://delivery-fabbry-mean.herokuapp.com/cliente/';
+  url = 'https://angulardelivery.onrender.com/cliente/';
 
   constructor(private http: HttpClient) { }
 

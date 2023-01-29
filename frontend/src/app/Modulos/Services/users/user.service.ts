@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UserService {
-  url = 'https://delivery-fabbry-mean.herokuapp.com/user';
+  url = 'https://angulardelivery.onrender.com/user';
 
   array: any;
 

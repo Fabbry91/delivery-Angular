@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PedidoService {
-  url = 'https://delivery-fabbry-mean.herokuapp.com/pedido/';
+  url = 'https://angulardelivery.onrender.com/pedido/';
 
   constructor(private http: HttpClient) { }
 

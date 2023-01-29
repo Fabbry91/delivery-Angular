@@ -5,7 +5,7 @@ import { Factura } from '../../Interfaces/factura';
   providedIn: 'root'
 })
 export class FacturaService {
-  url = 'https://delivery-fabbry-mean.herokuapp.com/factura/';
+  url = 'https://angulardelivery.onrender.com/factura/';
 
   constructor(private http: HttpClient) { }
 

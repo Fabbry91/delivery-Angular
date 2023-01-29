@@ -6,7 +6,7 @@ import { Horario } from '../../Interfaces/horario';
   providedIn: 'root'
 })
 export class HorarioService {
-  url = 'https://delivery-fabbry-mean.herokuapp.com/apertura';
+  url = 'https://angulardelivery.onrender.com/apertura';
   constructor(private http: HttpClient) { }
 
   getHorario(id?: string) {
